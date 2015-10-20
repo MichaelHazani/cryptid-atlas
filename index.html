@@ -5,30 +5,44 @@
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
     <title>Udacity P5</title>
+
     <link rel="stylesheet" type="text/css" href="bower_components/normalize-css/normalize.css">
     <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
-    <link href='https://fonts.googleapis.com/css?family=Lora:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,400italic,700' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
-  <div id="hero">
-  Atlas of Legendary Beast Sightings
-  </div>
-  <!--  google maps div -->
-  <div id="map">
-  </div>
 
+<!-- for specific bgimg editing -->
+<div id="bgimg"></div>
 
+<div id="hero">
+Atlas of Legendary Creature Sightings
+</div>
 
+<!-- dynamic Search Bar -->
+<div id="searchbar">
+  <input id="searchInput" placeholder="Search" type="search" data-bind="textInput: query, valueUpdate: 'keyup'" autocomplete="off">
+</div>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAabqJjylJzigw7nIIZjOg_cKSeC9-PKGg&callback=initMap" async defer></script>
-    <script src="js/map.js"> </script>
-    <script src="bower_components/knockout/dist/knockout.js"></script>
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="js/app.js">
-    <script>
-    console.log(beastList);
-    </script>
+<!--  google maps div -->
+<div id="map">
+</div>
+
+<div id="beastListDOM">
+  <ul data-bind="foreach:search">
+  <li>
+    <span data-bind="text: ($index() + 1)"></span>.
+    <span data-bind="text: name"></span>
+  </ul>
+</div>
+
+<!-- jQuery, Knockout, Maps API and app scripts -->
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/knockout/dist/knockout.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAabqJjylJzigw7nIIZjOg_cKSeC9-PKGg&callback=initMap" async defer></script>
+  <script src="js/app.js"> </script>
+
 </body>
 
 </html>
