@@ -1,0 +1,1 @@
+function initMap(){map=new google.maps.Map(document.getElementById("map"),{center:{lat:51.48,lng:0},zoom:10})}var map=null;$(function(){console.log("hello");var n=function(){var n=this};ko.applyBindings(new n)});
