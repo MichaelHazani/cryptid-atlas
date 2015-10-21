@@ -8,34 +8,40 @@
 
     <link rel="stylesheet" type="text/css" href="bower_components/normalize-css/normalize.css">
     <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
-    <link href='https://fonts.googleapis.com/css?family=Lora:400,400italic,700' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
 
 <!-- for specific bgimg editing -->
 <div id="bgimg"></div>
-
 <div id="hero">
-Atlas of Legendary Creature Sightings
+A Very Incomprehensive Compendium <br> of Legendary Creature Sightings
+<div id="credit">
+  by Electronic Occultist and Amateur Cryptozoolgist <br> Michaelus Hazanum
+</div>
+</div>
+
+
+
+
+<!--  google maps div -->
+<div id="map">
 </div>
 
 <!-- dynamic Search Bar -->
 <div id="searchbar">
-  <input id="searchInput" placeholder="Search" type="search" data-bind="textInput: query, valueUpdate: 'keyup'" autocomplete="off">
-</div>
-
-<!--  google maps div -->
-<div id="map">
+  <input id="searchInput" placeholder="Search" type="search" data-bind="textInput: query, valueUpdate: 'keyup'" autocomplete="on">
 </div>
 
 <div id="beastListDOM">
   <ul data-bind="foreach:search">
   <li>
     <span data-bind="text: ($index() + 1)"></span>.
-    <span data-bind="text: name"></span>
+    <span id="beastItem" data-bind="text: name, click: $parent.openInfoWindow"></span>
   </ul>
 </div>
+<div id="copyright">&copy 1689
+creatrix interitum</div>
 
 <!-- jQuery, Knockout, Maps API and app scripts -->
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
