@@ -78,14 +78,8 @@ var ViewModel = function() {
     });
 
     self.openInfoWindow = function(e) {
-      console.log(e);
-      google.maps.event.trigger(markers[(e.markerRef-1)], 'click');
+        google.maps.event.trigger(markers[(e.markerRef - 1)], 'click');
     }
-
-        //cryptid wiki link logic
-        $('#cryplink').on("click", function(){
-        console.log("hi!");
-        });
 
 };
 
@@ -311,10 +305,7 @@ function initMap() {
     //init previous infoWindow for previous-infoWindow close logic
     var prev_infoWindow = false;
 
-    //init cryptid wiki API access
-      $("#cryptlink").on('click', function() {
-      console.log();
-    });
+
 
     for (var i = 0; i < beasts.length; i++) {
         beasts[i].markerRef = (i + 1);
@@ -327,9 +318,9 @@ function initMap() {
         });
         markers.push(marker);
         var contentString = '<p>' + beasts[i].name + '<br>' + beasts[i].verbalLoc + '</p>' +
-        '<a href="#" id="cryptlink">search the Cryptid Wiki for ' + beasts[i].name + '</a>' +
-        '<br><br><iframe width="360" height="200" src="' + beasts[i].vidLink + '"frameborder="0"/>' +
-        '</iframe>';
+            '<a href="#" id="cryptlink">search the Cryptid Wiki for ' + beasts[i].name + '</a>' +
+            '<br><br><iframe width="360" height="200" src="' + beasts[i].vidLink + '"frameborder="0"/>' +
+            '</iframe>';
 
         var infoWindow = new google.maps.InfoWindow();
         bindInfo(marker, contentString, infoWindow)
@@ -337,7 +328,7 @@ function initMap() {
         function bindInfo(marker, contentString, infoWindow) {
             google.maps.event.addListener(marker, 'click', function() {
                 if (prev_infoWindow) {
-                  prev_infoWindow.close();
+                    prev_infoWindow.close();
                 }
 
                 prev_infoWindow = infoWindow;
@@ -346,9 +337,23 @@ function initMap() {
 
                 //cryptid wiki API search function
                 $("#cryptlink").on('click', function() {
-               console.log(beasts[(marker.label-1)].name);
-                 });
-            });
+                    $.ajax({
+                    url: "http://cryptidz.wikia.com/api/v1/Search/List?query=mothman&limit=25&minArticleQuality=10&batch=1%2C14?callback=?",
+                    type: "GET",
+                    jsonp: "callback",
+                    dataType: "jsonp",
+                    crossDomain: true,
+                    headers: {
+                        "Accept" : "jsonp; charset=utf-8",
+                        "Content-Type": "application/jsonp; charset=utf-8",
+                        "Access-Control-Allow-Origin" : "Content-Type, Accept, X-Requested-With, Session"
+                            },
+                    error: function(data, status, error){console.log('error',data,status,error);},
+                    success: function(data){console.log("success " + data);}
+                    });
+                    });
+                    console.log(beasts[(marker.label - 1)].name);
+               });
 
 
 
