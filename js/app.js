@@ -337,16 +337,19 @@ function initMap() {
 
                 //cryptid wiki API search function
                 $("#cryptlink").on('click', function() {
+                    $.ajaxSetup({
+                        headers: { 'Access-Control-Allow-Origin': 'http://macmini.local:5757/' }
+                    });
                     $.ajax({
-                    url: "http://cryptidz.wikia.com/api/v1/Search/List?query=mothman&limit=25&minArticleQuality=10&batch=1%2C14?callback=?",
+                    url: 'http://cryptidz.wikia.com/api/v1/Search/List?query=mothman&limit=25&minArticleQuality=10&batch=1&namespaces=0%2C14',
                     type: "GET",
-                    jsonp: "callback",
-                    dataType: "jsonp",
+                    dataType: "json",
+                    beforeSend: function(xhr){xhr.setRequestHeader('Access-Control-Allow-Origin', 'http://macmini.local:5757/');},
                     crossDomain: true,
                     headers: {
-                        "Accept" : "jsonp; charset=utf-8",
-                        "Content-Type": "application/jsonp; charset=utf-8",
-                        "Access-Control-Allow-Origin" : "Content-Type, Accept, X-Requested-With, Session"
+                        "Accept" : "json; charset=utf-8",
+                        "Content-Type": "application/json; charset=utf-8",
+                        'Access-Control-Allow-Origin' : 'http://macmini.local:5757/'
                             },
                     error: function(data, status, error){console.log('error',data,status,error);},
                     success: function(data){console.log("success " + data);}
