@@ -1724,6 +1724,24 @@
 		"randomFootnoteNumbers": 0,
 		"useCompatibilityMode": 0
 		},
+	"\/css\/jquery.sidr.dark.css": {
+		"fileType": 16,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/css\/jquery.sidr.dark.css",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/css\/jquery.sidr.light.css": {
+		"fileType": 16,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/css\/jquery.sidr.light.css",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/css\/stylesheet.css": {
 		"fileType": 16,
 		"ignore": 0,
@@ -1762,35 +1780,46 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/images\/bookframe.png": {
+	"\/images\/close.png": {
 		"fileType": 32768,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"initialSize": 353589,
-		"inputAbbreviatedPath": "\/images\/bookframe.png",
-		"outputAbbreviatedPath": "\/images\/bookframe.png",
+		"initialSize": 14268,
+		"inputAbbreviatedPath": "\/images\/close.png",
+		"outputAbbreviatedPath": "\/images\/close.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/images\/bookframe2.png": {
-		"fileType": 32768,
+	"\/images\/oldpaper.jpg": {
+		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"initialSize": 382849,
-		"inputAbbreviatedPath": "\/images\/bookframe2.png",
-		"outputAbbreviatedPath": "\/images\/bookframe2.png",
+		"initialSize": 51560,
+		"inputAbbreviatedPath": "\/images\/oldpaper.jpg",
+		"outputAbbreviatedPath": "\/images\/oldpaper.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/images\/frame.png": {
-		"fileType": 32768,
+	"\/images\/oldpaperdark.jpg": {
+		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"initialSize": 254808,
-		"inputAbbreviatedPath": "\/images\/frame.png",
-		"outputAbbreviatedPath": "\/images\/frame.png",
+		"initialSize": 6348,
+		"inputAbbreviatedPath": "\/images\/oldpaperdark.jpg",
+		"outputAbbreviatedPath": "\/images\/oldpaperdark.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/images\/sidetexture2.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 537360,
+		"inputAbbreviatedPath": "\/images\/sidetexture2.jpg",
+		"outputAbbreviatedPath": "\/images\/sidetexture2.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -1821,6 +1850,17 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/min\/app-min.js",
 		"outputAbbreviatedPath": "\/js\/min\/min\/app-min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/js\/min\/jquery.sidr.min.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/min\/jquery.sidr.min.js",
+		"outputAbbreviatedPath": "\/js\/min\/min\/jquery.sidr.min-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,

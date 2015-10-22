@@ -5,50 +5,59 @@
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
     <title>Udacity P5</title>
-
     <link rel="stylesheet" type="text/css" href="bower_components/normalize-css/normalize.css">
     <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery.sidr.dark.css">
 </head>
 
 <body>
+    <!-- for specific bgimg editing -->
+    <div id="bgimg"></div>
+    <div id="hero">
+        A Very Incomprehensive Compendium
+        <br> of Legendary Creature Sightings
+        <div id="credit">
+            by Electronic Occultist and Amateur Cryptozoolgist
+            <br> Michaelus Hazanum
+        </div>
+    </div>
+    <!-- sidebar link -->
+    <p id="sidebarp">
+        <button id="sidebarlink" href="#sidr">Creature Index</button>
+    </p>
+    <!--  google maps div -->
+    <div id="map">
+    </div>
+    <!-- container for Cryptid Wiki results -->
+    <div id="cryptiddiv">
+        <img id="cryptidclose" alt="cryptid modal close button" src="images/close.png">
+        <a href="http://cryptidz.wikia.com" alt="cryptid wiki" target="_blank">Cryptid Wiki</a> Search Results
 
-<!-- for specific bgimg editing -->
-<div id="bgimg"></div>
-<div id="hero">
-A Very Incomprehensive Compendium <br> of Legendary Creature Sightings
-<div id="credit">
-  by Electronic Occultist and Amateur Cryptozoolgist <br> Michaelus Hazanum
-</div>
-</div>
-
-
-
-
-<!--  google maps div -->
-<div id="map">
-</div>
-
-<!-- dynamic Search Bar -->
-<div id="searchbar">
-  <input id="searchInput" placeholder="Search" type="search" data-bind="textInput: query, valueUpdate: 'keyup'" autocomplete="on">
-</div>
-
-<div id="beastListDOM">
-  <ul data-bind="foreach:search">
-  <li>
-    <span data-bind="text: ($index() + 1)"></span>.
-    <span id="beastItem" data-bind="text: name, click: $parent.openInfoWindow"></span>
-  </ul>
-</div>
-<div id="copyright">&copy 1689
-creatrix interitum</div>
-
-<!-- jQuery, Knockout, Maps API and app scripts -->
-  <script src="bower_components/jquery/dist/jquery.min.js"></script>
-  <script src="bower_components/knockout/dist/knockout.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAabqJjylJzigw7nIIZjOg_cKSeC9-PKGg&callback=initMap" async defer></script>
-  <script src="js/app.js"> </script>
-
+        <div id="cryptidresults">
+        </div>
+    </div>
+    <!-- sidebar div -->
+    <div id="sidr">
+        <!-- dynamic Search Bar -->
+        <div id="searchbar">
+            <input id="searchInput" placeholder="Search" type="search" data-bind="textInput: query, valueUpdate: 'keyup'" autocomplete="on">
+        </div>
+        <!--         dynamic KO-bound beastList -->
+        <div id="beastListDOM">
+            <ul data-bind="foreach:search">
+                <li>
+                    <span id="beastItem" data-bind="text: name, click: $parent.openInfoWindow"></span>
+            </ul>
+        </div>
+    </div>
+    <div id="copyright">&copy 1689 creatrix interitum</div>
+    <!-- jQuery, Knockout, Maps API and app scripts -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="js/min/jquery.sidr.min.js"></script>
+    <script src="bower_components/knockout/dist/knockout.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAabqJjylJzigw7nIIZjOg_cKSeC9-PKGg&callback=initMap" async defer></script>
+    <script src="js/app.js">
+    </script>
 </body>
 
 </html>

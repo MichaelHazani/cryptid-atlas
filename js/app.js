@@ -1,6 +1,7 @@
 //init markers for KO communication
 var markers = [];
 
+// beasts DB
 var beasts = [
 
     {
@@ -59,6 +60,11 @@ var beasts = [
 
 ];
 
+//init sidr
+$('#sidebarlink').sidr({
+    displace: false
+});
+
 var ViewModel = function() {
     var self = this;
     //init beast array
@@ -78,8 +84,9 @@ var ViewModel = function() {
     });
 
     self.openInfoWindow = function(e) {
+        $.sidr('close', 'sidr');
         google.maps.event.trigger(markers[(e.markerRef - 1)], 'click');
-    }
+    };
 
 };
 
@@ -305,8 +312,6 @@ function initMap() {
     //init previous infoWindow for previous-infoWindow close logic
     var prev_infoWindow = false;
 
-
-
     for (var i = 0; i < beasts.length; i++) {
         beasts[i].markerRef = (i + 1);
         var marker = new google.maps.Marker({
@@ -318,12 +323,12 @@ function initMap() {
         });
         markers.push(marker);
         var contentString = '<p>' + beasts[i].name + '<br>' + beasts[i].verbalLoc + '</p>' +
-            '<a href="#" id="cryptlink">search the Cryptid Wiki for ' + beasts[i].name + '</a>' +
+            '<a href="#" id="cryptlink">search the Cryptid Wiki for the ' + beasts[i].name + '</a>' +
             '<br><br><iframe width="360" height="200" src="' + beasts[i].vidLink + '"frameborder="0"/>' +
             '</iframe>';
 
         var infoWindow = new google.maps.InfoWindow();
-        bindInfo(marker, contentString, infoWindow)
+        bindInfo(marker, contentString, infoWindow);
 
         function bindInfo(marker, contentString, infoWindow) {
             google.maps.event.addListener(marker, 'click', function() {
@@ -337,30 +342,31 @@ function initMap() {
 
                 //cryptid wiki API search function
                 $("#cryptlink").on('click', function() {
-                    $.ajaxSetup({
-                        headers: { 'Access-Control-Allow-Origin': 'http://macmini.local:5757/' }
+                    var beastName = (beasts[(marker.label - 1)].name).split(" ").join("%2B");
+                    var apiQuery =
+                        "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D'http%3A%2F%2Fcryptidz.wikia.com%2Fapi%2Fv1%2FSearch%2FList%3Fquery%3D" +
+                        beastName +
+                        "%26limit%3D25%26minArticleQuality%3D10%26batch%3D1%26namespaces%3D0%252C14'&format=xml&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=?";
+                    $.getJSON(apiQuery, function(data) {
+                        showCryptid(data); //do something CORS rules wouldn't let you
                     });
-                    $.ajax({
-                    url: 'http://cryptidz.wikia.com/api/v1/Search/List?query=mothman&limit=25&minArticleQuality=10&batch=1&namespaces=0%2C14',
-                    type: "GET",
-                    dataType: "json",
-                    beforeSend: function(xhr){xhr.setRequestHeader('Access-Control-Allow-Origin', 'http://macmini.local:5757/');},
-                    crossDomain: true,
-                    headers: {
-                        "Accept" : "json; charset=utf-8",
-                        "Content-Type": "application/json; charset=utf-8",
-                        'Access-Control-Allow-Origin' : 'http://macmini.local:5757/'
-                            },
-                    error: function(data, status, error){console.log('error',data,status,error);},
-                    success: function(data){console.log("success " + data);}
-                    });
-                    });
-                    console.log(beasts[(marker.label - 1)].name);
-               });
-
-
-
+                });
+            });
         }
     }
-
 }
+
+//display CryptidWiki API Scrape Results
+function showCryptid(data) {
+cryptData = JSON.parse(data.results[0].toString().replace("<body>","").replace("</body>",""));
+$("#cryptidresults").html("");
+for (var i=0; i < cryptData.items.length; i++) {
+$("#cryptidresults").append("<a href="+cryptData.items[i].url+" target='_blank' alt=cryptidWiki article for "+ cryptData.items[i].title + ">" + cryptData.items[i].title + "</a><br>");
+}
+$("#cryptiddiv").fadeIn("slow");
+}
+
+//hide window when clicked
+$("#cryptidclose").click(function(){
+    $("#cryptiddiv").fadeOut("slow");
+});
