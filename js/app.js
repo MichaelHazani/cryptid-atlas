@@ -56,8 +56,89 @@ var beasts = [
         long: -88.106112,
         vidLink: "https://www.youtube.com/embed/nda_OSWeyn8",
         markerRef: null
-    }
+    },
 
+    {
+        name: "Mongolian Death Worm",
+        verbalLoc: "Gobi Desert, Mongolia",
+        lat: 43.413029,
+        long: 104.326172,
+        vidLink: "https://www.youtube.com/embed/pUHx_JRInYo",
+        markerRef: null
+    },
+
+    {
+        name: "Carnivorous Tree",
+        verbalLoc: "Madagascar",
+        lat: -18.766947,
+        long: 46.869107,
+        vidLink: "https://www.youtube.com/embed/slVRJR6TBVA",
+        markerRef: null
+    },
+
+
+    {
+        name: "Oklahoma Octopus",
+        verbalLoc: "Oklahoma, USA",
+        lat: -18.766947,
+        long: 46.869107,
+        vidLink: "https://www.youtube.com/embed/gdM_ILb9Dvk",
+        markerRef: null
+    },
+
+    {
+        name: "Lone Pine Mountain Devil",
+        verbalLoc: "Lone Pine, CA, USA",
+        lat: 36.606044,
+        long: -118.062865,
+        vidLink: "https://www.youtube.com/embed/t7I-2uUM-BA",
+        markerRef: null
+    },
+
+    {
+        name: "Ropen",
+        verbalLoc: "New Guinea Island",
+        lat: -4.185235,
+        long: 136.825284,
+        vidLink: "https://www.youtube.com/embed/QSxq9qnFau0",
+        markerRef: null
+    },
+
+    {
+        name: "Boggy Creek Monster",
+        verbalLoc: "Fouke County, AK",
+        lat: 33.364438,
+        long: -93.936066,
+        vidLink: "https://www.youtube.com/embed/b50_ZcPa-3s",
+        markerRef: null
+    },
+
+    {
+        name: "Orang Pendek",
+        verbalLoc: "Sumatra",
+        lat: -0.589724,
+        long: 101.343106,
+        vidLink: "https://www.youtube.com/embed/I_LStrhLkkc",
+        markerRef: null
+    },
+
+    {
+        name: "Merman",
+        verbalLoc: "Thunder Bay, Lake Superior",
+        lat: 47.723087,
+        long: -86.940716,
+        vidLink: "https://www.youtube.com/embed/G9dLoE47zLU",
+        markerRef: null
+    },
+
+    {
+        name: "Popobawa",
+        verbalLoc: "Pemba Island",
+        lat: -5.031935,
+        long: 39.775557,
+        vidLink: "https://www.youtube.com/embed/09AATWEGYsg",
+        markerRef: null
+    }
 ];
 
 //init sidr
@@ -318,7 +399,7 @@ function initMap() {
 
             map: map,
             draggable: false,
-            label: (i + 1).toString(),
+            number: beasts[i].markerRef,
             position: new google.maps.LatLng(beasts[i].lat, beasts[i].long)
         });
         markers.push(marker);
@@ -342,7 +423,7 @@ function initMap() {
 
                 //cryptid wiki API search function
                 $("#cryptlink").on('click', function() {
-                    var beastName = (beasts[(marker.label - 1)].name).split(" ").join("%2B");
+                    var beastName = (beasts[(marker.number - 1)].name).split(" ").join("%2B");
                     var apiQuery =
                         "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D'http%3A%2F%2Fcryptidz.wikia.com%2Fapi%2Fv1%2FSearch%2FList%3Fquery%3D" +
                         beastName +
@@ -358,15 +439,15 @@ function initMap() {
 
 //display CryptidWiki API Scrape Results
 function showCryptid(data) {
-cryptData = JSON.parse(data.results[0].toString().replace("<body>","").replace("</body>",""));
-$("#cryptidresults").html("");
-for (var i=0; i < cryptData.items.length; i++) {
-$("#cryptidresults").append("<a href="+cryptData.items[i].url+" target='_blank' alt=cryptidWiki article for "+ cryptData.items[i].title + ">" + cryptData.items[i].title + "</a><br>");
-}
-$("#cryptiddiv").fadeIn("slow");
+    cryptData = JSON.parse(data.results[0].toString().replace("<body>", "").replace("</body>", ""));
+    $("#cryptidresults").html("");
+    for (var i = 0; i < cryptData.items.length; i++) {
+        $("#cryptidresults").append("<a href=" + cryptData.items[i].url + " target='_blank' alt=cryptidWiki article for " + cryptData.items[i].title + ">" + cryptData.items[i].title + "</a><br>");
+    }
+    $("#cryptiddiv").fadeIn("slow");
 }
 
 //hide window when clicked
-$("#cryptidclose").click(function(){
+$("#cryptidclose").click(function() {
     $("#cryptiddiv").fadeOut("slow");
 });
