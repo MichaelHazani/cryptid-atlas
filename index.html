@@ -40,7 +40,7 @@
     <div id="sidr">
         <!-- dynamic Search Bar -->
         <div id="searchbar">
-            <input id="searchInput" placeholder="Search" type="search" data-bind="textInput: query, valueUpdate: 'keyup'" autocomplete="on">
+            <input id="searchInput" placeholder="Search" type="search" data-bind="textInput: userInput, event: {keyup: filterMarkers}" autocomplete="on">
         </div>
         <!--         dynamic KO-bound beastList -->
         <div id="beastListDOM">

@@ -152,26 +152,48 @@ var ViewModel = function() {
     self.beastList = ko.observableArray(beasts);
 
 
+    //observable-marker array:
+    self.visibleBeasts = ko.observableArray();
 
-    //search query
-    self.query = ko.observable('');
+    //populate visibleMarkers
+    self.beastList().forEach(function(beast){
+        self.visibleBeasts.push(beast);
+    });
 
+  // This, along with the data-bind on the <input> element, lets KO keep
+  // constant awareness of what the user has entered. It stores the user's
+  // input at all times.
+    self.userInput = ko.observable('');
+
+    //filtered markers function
+    self.filterMarkers = function() {
+        var searchInput = self.userInput().toLowerCase();
+
+        self.visibleBeasts.removeAll();
+
+        self.beastList().forEach(function(beast){
+            markers[beast.markerRef].setVisible(false);
+            if (beast.name.toLowerCase().indexOf(searchInput) !== -1) {
+               self.visibleBeasts.push(beast);
+            }
+        });
+    self.visibleBeasts().forEach(function(beast){
+        markers[beast.markerRef].setVisible(true);
+    });
+    };
 
     // search bar function
-    self.search = self.markerArray = ko.computed(function() {
-
+    self.search = ko.computed(function() {
+        self.visibleBeasts.removeAll();
         return ko.utils.arrayFilter(self.beastList(), function(beast) {
-            var result = beast.name.toLowerCase().indexOf(self.query().toLowerCase());
-            if (result > 0 || result < 0) {
-                for (var i = 0; i < markers.length; i++) {
-                    markers[i].setMap(null);
-                }
-            } else if (result === 0) {
-                for (var i = 0; i < markers.length; i++) {
-                    markers[i].setMap(map);
-                }
-            }
-            return beast.name.toLowerCase().indexOf(self.query().toLowerCase()) >= 0;
+            var result = beast.name.toLowerCase().indexOf(self.userInput().toLowerCase());
+
+            // } else if (result === 0) {
+            //     for (var i = 0; i < markers.length; i++) {
+            //         markers[i].setMap(map);
+            //     }
+            // }
+            return beast.name.toLowerCase().indexOf(self.userInput().toLowerCase()) >= 0;
         });
 
     });
@@ -405,9 +427,9 @@ function initMap() {
     var prev_infoWindow = false;
     var prev_marker = false;
     for (var i = 0; i < beasts.length; i++) {
-        beasts[i].markerRef = (i);
+        beasts[i].markerRef = i;
         var marker = new google.maps.Marker({
-
+            visible: true,
             map: map,
             draggable: false,
             number: beasts[i].markerRef,
