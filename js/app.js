@@ -156,17 +156,29 @@ var ViewModel = function() {
     //search query
     self.query = ko.observable('');
 
-    //search bar function
-    self.search = ko.computed(function() {
+
+    // search bar function
+    self.search = self.markerArray = ko.computed(function() {
 
         return ko.utils.arrayFilter(self.beastList(), function(beast) {
+            var result = beast.name.toLowerCase().indexOf(self.query().toLowerCase());
+            if (result > 0 || result < 0) {
+                for (var i = 0; i < markers.length; i++) {
+                    markers[i].setMap(null);
+                }
+            } else if (result === 0) {
+                for (var i = 0; i < markers.length; i++) {
+                    markers[i].setMap(map);
+                }
+            }
             return beast.name.toLowerCase().indexOf(self.query().toLowerCase()) >= 0;
         });
+
     });
 
     self.openInfoWindow = function(e) {
         $.sidr('close', 'sidr');
-        google.maps.event.trigger(markers[(e.markerRef - 1)], 'click');
+        google.maps.event.trigger(markers[(e.markerRef)], 'click');
     };
 
 };
@@ -383,18 +395,17 @@ function initMap() {
             "elementType": "labels.text.stroke",
             "stylers": [{
                 "visibility": "off"
-            }]
-        }]
-
+            }],
+        }],
     });
 
     //marker implementation
 
     //init previous infoWindow for previous-infoWindow close logic
     var prev_infoWindow = false;
-
+    var prev_marker = false;
     for (var i = 0; i < beasts.length; i++) {
-        beasts[i].markerRef = (i + 1);
+        beasts[i].markerRef = (i);
         var marker = new google.maps.Marker({
 
             map: map,
@@ -402,6 +413,7 @@ function initMap() {
             number: beasts[i].markerRef,
             position: new google.maps.LatLng(beasts[i].lat, beasts[i].long)
         });
+        marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
         markers.push(marker);
         var contentString = '<p>' + beasts[i].name + '<br>' + beasts[i].verbalLoc + '</p>' +
             '<a href="#" id="cryptlink">search the Cryptid Wiki for the ' + beasts[i].name + '</a>' +
@@ -416,20 +428,26 @@ function initMap() {
                 if (prev_infoWindow) {
                     prev_infoWindow.close();
                 }
-
+                marker.setIcon('http://maps.google.com/mapfiles/ms/icons/purple-dot.png');
+                if (prev_marker) {
+                    prev_marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+                }
                 prev_infoWindow = infoWindow;
+                prev_marker = marker;
                 infoWindow.setContent(contentString);
                 infoWindow.open(map, marker);
 
                 //cryptid wiki API search function
                 $("#cryptlink").on('click', function() {
-                    var beastName = (beasts[(marker.number - 1)].name).split(" ").join("%2B");
+                    var beastName = (beasts[(marker.number)].name).split(" ").join("%2B");
                     var apiQuery =
                         "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D'http%3A%2F%2Fcryptidz.wikia.com%2Fapi%2Fv1%2FSearch%2FList%3Fquery%3D" +
                         beastName +
                         "%26limit%3D25%26minArticleQuality%3D10%26batch%3D1%26namespaces%3D0%252C14'&format=xml&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=?";
                     $.getJSON(apiQuery, function(data) {
-                        showCryptid(data); //do something CORS rules wouldn't let you
+                        showCryptid(data);
+                    }).fail(function() {
+                        alert("Error! \n Unable to retreive data from the Cryptid Wiki");
                     });
                 });
             });
@@ -439,14 +457,21 @@ function initMap() {
 
 //display CryptidWiki API Scrape Results
 function showCryptid(data) {
-    cryptData = JSON.parse(data.results[0].toString().replace("<body>", "").replace("</body>", ""));
-    $("#cryptidresults").html("");
-    for (var i = 0; i < cryptData.items.length; i++) {
-        $("#cryptidresults").append("<a href=" + cryptData.items[i].url + " target='_blank' alt=cryptidWiki article for " + cryptData.items[i].title + ">" + cryptData.items[i].title + "</a><br>");
-    }
-    $("#cryptiddiv").fadeIn("slow");
-}
+    if (data.results.length <= 0) {
+        $("#cryptidresults").append("<p>No Results Found!</p>");
+        $("#cryptiddiv").fadeIn("slow");
+    } else {
+        console.log(data);
+        cryptData = JSON.parse(data.results[0].toString().replace("<body>", "").replace("</body>", ""));
+        $("#cryptidresults").html("");
 
+        for (var i = 0; i < cryptData.items.length; i++) {
+            $("#cryptidresults").append("<a href=" + cryptData.items[i].url + " target='_blank' alt=cryptidWiki article for " + cryptData.items[i].title + ">" + cryptData.items[i].title + "</a><br>");
+        }
+
+        $("#cryptiddiv").fadeIn("slow");
+    }
+}
 //hide window when clicked
 $("#cryptidclose").click(function() {
     $("#cryptiddiv").fadeOut("slow");
