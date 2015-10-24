@@ -1,2 +1,10 @@
 # frontend-nanodegree-neighborhood-map
-P5, details: https://www.udacity.com/course/viewer#!/c-nd001/l-2711658591/m-2690698537
+P5, project details: https://www.udacity.com/course/viewer#!/c-nd001/l-2711658591/m-2629448638
+
+Dependencies:
+-[jQuery](https://jquery.com/)
+-[Knockout.js](http://knockoutjs.com/) for MVVC model logic
+-[Sidr](http://www.berriart.com/sidr/) for the sidebar solution
+
+To run:
+Simply clone the repo and open index.html. No batteries necessary;)

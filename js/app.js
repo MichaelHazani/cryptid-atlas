@@ -156,13 +156,13 @@ var ViewModel = function() {
     self.visibleBeasts = ko.observableArray();
 
     //populate visibleMarkers
-    self.beastList().forEach(function(beast){
+    self.beastList().forEach(function(beast) {
         self.visibleBeasts.push(beast);
     });
 
-  // This, along with the data-bind on the <input> element, lets KO keep
-  // constant awareness of what the user has entered. It stores the user's
-  // input at all times.
+    // This, along with the data-bind on the <input> element, lets KO keep
+    // constant awareness of what the user has entered. It stores the user's
+    // input at all times.
     self.userInput = ko.observable('');
 
     //filtered markers function
@@ -171,15 +171,15 @@ var ViewModel = function() {
 
         self.visibleBeasts.removeAll();
 
-        self.beastList().forEach(function(beast){
+        self.beastList().forEach(function(beast) {
             markers[beast.markerRef].setVisible(false);
             if (beast.name.toLowerCase().indexOf(searchInput) !== -1) {
-               self.visibleBeasts.push(beast);
+                self.visibleBeasts.push(beast);
             }
         });
-    self.visibleBeasts().forEach(function(beast){
-        markers[beast.markerRef].setVisible(true);
-    });
+        self.visibleBeasts().forEach(function(beast) {
+            markers[beast.markerRef].setVisible(true);
+        });
     };
 
     // search bar function
