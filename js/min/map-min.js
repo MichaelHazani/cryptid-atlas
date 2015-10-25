@@ -1,1 +1,0 @@
-function initMap(){map=new google.maps.Map(document.getElementById("map"),{center:{lat:51.48,lng:30},zoom:3,mapTypeId:google.maps.MapTypeId.SATELLITE})}var map=null;
