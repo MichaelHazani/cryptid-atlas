@@ -1,0 +1,30 @@
+@media (max-width:500px){body{background-image:none !important;}
+#tubeFrame,
+#shortCutText{display:none;}
+#hero{font-size:0.7em;}
+#sidebarlink{font-size:0.5em;width:200px;}
+#cryptiddiv{top:0px;padding:0px;margin-top:0px;background-image:none;}
+}
+@font-face{font-family:'MagicMedieval';src:url('../fonts/mm/MagicMedieval.ttf.woff') format('woff'), url('../fonts/mm/MagicMedieval.ttf.svg#MagicMedieval') format('svg'), url('../fonts/mm/MagicMedieval.ttf.eot'), url('../fonts/mm/MagicMedieval.ttf.eot?#iefix') format('embedded-opentype');font-weight:normal;font-style:normal;}
+html,
+body{height:100%;font-family:'MagicMedieval', serif;font-size:1.3em;}
+ul{list-style-type:none;}
+@keyframes colorChange{from{color:black;}
+to{color:purple;}
+}
+#beastItem:hover,
+#cryptidclose{animation-duration:1s;animation-iteration-count:1;animation-name:colorChange;-webkit-animation-fill-mode:forwards;cursor:pointer;}
+#bgimg{background-image:url('../images/bg1.png');background-repeat:no-repeat;background-size:cover;height:100%;width:100%;position:fixed;top:0;opacity:0.45;padding:0;margin-top:0px;z-index:-1;}
+#map{height:55%;margin-top:5%;width:90%;margin-left:auto;margin-right:auto;max-width:750px !important;border-radius:28px 28px 28px 28px;-moz-border-radius:28px 28px 28px 28px;-webkit-border-radius:28px 28px 28px 28px;border:4px solid #000000;}
+#hero{text-align:center;margin-top:3%;}
+#sidebarp{text-align:center;}
+#shortCutText{text-align:center;font-size:0.8em;}
+#credit{font-size:0.7em;font-style:italic;margin-top:2%;}
+#cryptiddiv{position:absolute;top:0;width:80%;left:50%;padding:10px;display:none;margin-top:5%;margin-left:-40%;max-width:750px !important;border-radius:28px 28px 28px 28px;-moz-border-radius:28px 28px 28px 28px;-webkit-border-radius:28px 28px 28px 28px;border:4px solid #000000;font-size:0.6em;text-align:center;background-image:url('../images/cryptbg2.png');background-repeat:no-repeat;background-size:cover;}
+#cryptidclose{max-width:5%;float:right;}
+#cryptidresults{margin-top:30px;}
+#sidr{background-image:url('../images/oldpaperdark.jpg');background-repeat:no-repeat;background-size:cover;}
+#searchInput{margin-top:20px;width:100%;margin-left:auto;margin-right:auto;margin-bottom:20px;text-align:center;font-size:25px;color:black;}
+#beastListDOM{font-size:0.9em;font-style:italic;}
+#copyright{text-align:center;font-size:0.4em;}
+.gm-style-iw{maxHeight:500px;maxWidth:600px;height:500px;width:600px;}
